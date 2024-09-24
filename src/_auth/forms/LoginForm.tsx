@@ -42,10 +42,12 @@ const LoginForm = () => {
     if(currentSession.data) {
       if (currentSession.data.email === email) {
         navigate("/")
-        return toast({ title: "Oops!, You are already logged in" });       
+        // return toast({ title: "Oops!, You are already logged in" }); 
+        console.log("Oops!, You are already logged in");      
     }else{
       localStorage.removeItem("token");
-      toast({ title: "You are logged out from previous account" });
+      // toast({ title: "You are logged out from previous account" });
+      console.log("You are logged out from previous account");
     }
 
     try {
@@ -61,12 +63,15 @@ const LoginForm = () => {
       })
 
       if(!login.data) {
-        return toast({
-          variant: "destructive",
-          title: "Oops!, Invalid email or password, or Account does'nt exist",
-          className:
-            "bg-danger-red font-semibold p-3 w-fit h-fit fixed right-10 bottom-10 ml-10",
-        });
+        // return toast({
+        //   variant: "destructive",
+        //   title: "Oops!, Invalid email or password, or Account does'nt exist",
+        //   className:
+        //     "bg-danger-red font-semibold p-3 w-fit h-fit fixed right-10 bottom-10 ml-10",
+        // });
+        console.log(
+          "Oops!, Invalid email or password, or Account does'nt exist"
+        );
       }
 
       localStorage.setItem("token", login.data.token);
@@ -74,19 +79,21 @@ const LoginForm = () => {
 
       if (isLoggedIn) {
         // form.reset();
-        toast({
-          title: "Signin Successful!",
-          className:
-            "bg-success-green text-xs sm:text-lg font-semibold w-fit h-fit p-3 fixed right-10 bottom-10",
-          duration: 3000,
-        });
+        // toast({
+        //   title: "Signin Successful!",
+        //   className:
+        //     "bg-success-green text-xs sm:text-lg font-semibold w-fit h-fit p-3 fixed right-10 bottom-10",
+        //   duration: 3000,
+        // });
+        console.log("Signin Successful!");
         navigate("/");
       } else
-        toast({
-          title: "Oops!, Login failed. Please try again.",
-          className:
-            "bg-danger-red font-semibold p-3 w-fit h-fit fixed right-10 bottom-10 ml-10",
-        });
+        // toast({
+        //   title: "Oops!, Login failed. Please try again.",
+        //   className:
+        //     "bg-danger-red font-semibold p-3 w-fit h-fit fixed right-10 bottom-10 ml-10",
+        // });
+        console.log( "Oops!, Login failed. Please try again." );
     }catch (error) {
       console.log(error);
     }finally {

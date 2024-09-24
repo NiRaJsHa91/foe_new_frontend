@@ -1,199 +1,126 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../Styles/Stages.css';
-import passage1Img from '../assets/Img/img1.jpg';
-import passage2Img from '../assets/Img/img2.jpg';
-import passage3Img from '../assets/Img/img3.jpg';
-import passage4Img from '../assets/Img/img4.jpg';
-import passage5Img from '../assets/Img/img5.jpg';
-import StagesNew from './StagesNew';
-import Leaderboard from './Leaderboard';
-// import { useAuth } from '../Context/AuthContext';
-// import { db } from '../Firebase/FirebaseConfig';
+"use client";
 
-function Stages() {
-  // const { user } = useAuth();
-  const navigate = useNavigate();
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChevronDown } from "lucide-react";
+import { Book, FileText, Headphones, Video } from "lucide-react";
 
-      const getProgramInfoByCohortId = {
-        userId: "user1@chippersage.com",
-        program: {
-          programId: "Prg_EEA_1",
-          programName: "EEA Level 1",
-          programDesc:
-            "This is the English Ever After Course to learn basic English concepts",
-          stages: [
-            {
-              stageid: "Prg_EEA_1_Stg_0",
-              stageName: "Stage 0",
-              stageDesc: "Basic info",
-              units: [
-                {
-                  unit_id: "Unit_EEA_Read_0",
-                  unit_name: "Read and Respond 0",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "yes",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_1",
-                  unit_name: "Read and Respond 1",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "yes",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_2",
-                  unit_name: "Read and Respond 2",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "yes",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_3",
-                  unit_name: "Read and Respond 3",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "yes",
-                },
-              ],
-              stage_completion_status: "yes",
-            },
-            {
-              stageid: "Prg_EEA_1_Stg_1",
-              stageName: "Stage 1",
-              stageDesc: "Inter info",
-              units: [
-                {
-                  unit_id: "Unit_EEA_Read_1_1",
-                  unit_name: "Read and Respond 1",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "yes",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_1_2",
-                  unit_name: "Read and Respond 2",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "yes",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_1_3",
-                  unit_name: "Read and Respond 3",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "no",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_1_4",
-                  unit_name: "Read and Respond 4",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "no",
-                },
-              ],
-              stage_completion_status: "no",
-            },
-            {
-              stageid: "Prg_EEA_1_Stg_2",
-              stageName: "Stage 2",
-              stageDesc: "Adv info",
-              units: [
-                {
-                  unit_id: "Unit_EEA_Read_2_0",
-                  unit_name: "Read and Respond L2-0",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "no",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_2_1",
-                  unit_name: "Read and Respond L2-1",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "no",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_2_2",
-                  unit_name: "Read and Respond L2-2",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "no",
-                },
-                {
-                  unit_id: "Unit_EEA_Read_2_3",
-                  unit_name: "Read and Respond L2-3",
-                  unit_desc:
-                    "In this unit, you should read the lines and answer the questions that follow",
-                  completion_status: "no",
-                },
-              ],
-              stage_completion_status: "no",
-            },
-          ],
-        },
-      };
+// const units = [
+//   { name: "Reading", icon: Book },
+//   { name: "Writing", icon: FileText },
+//   { name: "Listening", icon: Headphones },
+//   { name: "Speaking", icon: Video },
+// ];
+// @ts-ignore
+export default function Stages({ stages }) {
+  const [expandedModule, setExpandedModule] = useState(null);
+  const [hoveredUnit, setHoveredUnit] = useState(null);
 
-      const getLeaderBoardInfo = {
-        cohortId: "Cht_Sep-24-Bhive",
-        cohortName: "Sep-24-Bhive",
-        userId: "user1@chippersage.com",
-        leaderboard: [
-          {
-            userName: "Preeti",
-            userId: "preeti@chippersage.com",
-            total_score: 0,
-          },
-          {
-            userName: "Rajesh",
-            userId: "user1@chippersage.com",
-            total_score: 12,
-          },
-          {
-            userName: "Saanvi",
-            userId: "saanvi@chippersage.com",
-            total_score: 28,
-          },
-          {
-            userName: "Shruthi",
-            userId: "shruthi@chippersage.com",
-            total_score: 28,
-          },
-          {
-            userName: "Manoj",
-            userId: "manoj@chippersage.com",
-            total_score: 28,
-          },
-          {
-            userName: "Nitin",
-            userId: "nitin@chippersage.com",
-            total_score: 28,
-          },
-          {
-            userName: "Sid",
-            userId: "sid@chippersage.com",
-            total_score: 45,
-          },
-        ],
-      };
+  // const modules = [
+  //   {
+  //     level: "Level 3a",
+  //     description:
+  //       "This module will teach you the basics of reading, writing and speaking English",
+  //     buttonText: "Continue",
+  //     isActive: true,
+  //   },
+  //   {
+  //     level: "Level 3b",
+  //     description:
+  //       "This module will teach you the basics of reading, writing and speaking English",
+  //     buttonText: "Finish Level 3A to Unlock",
+  //     isActive: false,
+  //   }],
 
-
-//   const [selectedStage, setSelectedStage] = useState(null);
-  
-// // @ts-ignore
-//   const handleStageClick = (stageid) => {
-//     setSelectedStage(stageid === selectedStage ? null : stageid);
-//     // setSelectedPassage(null);
-//   };
+// @ts-ignore
+  const toggleExpand = (index) => {
+    if (stages[index].stage_completion_status === "yes") {
+      setExpandedModule(expandedModule === index ? null : index);
+    }
+  };
 
   return (
-    <div className="w-full flex mt-44">
+    <div className="w-full max-w-md mx-auto space-y-4">
       {/* @ts-ignore */}
-      <StagesNew stages={getProgramInfoByCohortId?.program?.stages} />
-      <Leaderboard {...getLeaderBoardInfo} />
+      {stages?.map((stage, index) => (
+        <Card
+          key={index}
+          className={`rounded-lg ${stage.stage_completion_status === "yes" ? "bg-green-500" : "bg-gray-100"}`}
+        >
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle
+                className={`text-lg ${
+                  stage.stage_completion_status === "yes" ? "text-white" : "text-gray-900"
+                }`}
+              >
+                {stage.stageName}
+              </CardTitle>
+              {stage.stage_completion_status === "yes" && (
+                <ChevronDown
+                  className={`h-5 w-5 transition-transform duration-300 ${
+                    expandedModule === index ? "rotate-180" : ""
+                  } text-white`}
+                />
+              )}
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p
+              className={`text-sm mb-4 ${
+                stage.stage_completion_status ? "text-white" : "text-gray-600"
+              }`}
+            >
+              {stage.stageDesc}
+            </p>
+            <Button
+              onClick={() => toggleExpand(index)}
+              className={`w-full ${
+                stage.stage_completion_status
+                  ? "bg-white text-green-500 hover:bg-gray-100"
+                  : "bg-gray-200 text-gray-500 hover:bg-gray-300 cursor-not-allowed"
+              }`}
+            >
+              Continue
+            </Button>
+            <div
+              className={`mt-4 grid grid-cols-2 gap-4 overflow-hidden transition-all duration-300 ease-in-out ${
+                expandedModule === index
+                  ? "max-h-96 opacity-100"
+                  : "max-h-0 opacity-0"
+              }`}
+            >
+              {/* @ts-ignore */}
+              {stage?.units?.map((unit, unitIndex) => (
+                <div
+                  key={unitIndex}
+                  className="flex items-center space-x-2 p-2 rounded-md transition-colors duration-200 ease-in-out"
+                  onMouseEnter={() => setHoveredUnit(unit.unit_name)}
+                  onMouseLeave={() => setHoveredUnit(null)}
+                >
+                  <Book
+                    className={`h-6 w-6 ${
+                      stage.stage_completion_status ? "text-white" : "text-gray-600"
+                    }`}
+                  />
+                  <span
+                    className={`text-sm ${
+                      stage.stage_completion_status ? "text-white" : "text-gray-600"
+                    } ${
+                      hoveredUnit === unit.unit_name
+                        ? "opacity-100 translate-x-1"
+                        : "opacity-0"
+                    } transition-all duration-200 ease-in-out`}
+                  >
+                    {unit.unit_name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 }
-
-export default Stages;
